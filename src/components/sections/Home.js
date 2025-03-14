@@ -196,7 +196,12 @@ const Home = () => {
                 <div className="w-56 h-56 rounded-full overflow-hidden border-4 border-secondary border-opacity-20 shadow-xl">
                   {/* Replace with your profile image */}
                   <div className="w-full h-full bg-gradient-to-br from-tertiary to-secondary opacity-60 flex items-center justify-center">
-                    <span className="text-light text-6xl font-bold">RR</span>
+                    {/* <span className="text-light text-6xl font-bold">RR</span> */}
+                    <img
+                      src="https://media.licdn.com/dms/image/v2/D4D03AQG6E4IkT88WJA/profile-displayphoto-shrink_400_400/B4DZWV64KAG4Ag-/0/1741976995123?e=1747267200&v=beta&t=nklIwi5oqu1QC7e7yG9hy1-IiLH9TgMYHRvF06Aj3z0"
+                      alt="Raj Rattan"
+                      className="w-full h-full object-cover object-center "
+                       />
                   </div>
                 </div>
               </div>
