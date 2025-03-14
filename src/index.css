@@ -1,13 +1,239 @@
-body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Root variables */
+:root {
+  /* Standard color variables */
+  --color-primary: #0a192f;
+  --color-secondary: #64ffda;
+  --color-tertiary: #8892b0;
+  --color-light: #ccd6f6;
+  
+  /* RGB versions for opacity support */
+  --color-primary-rgb: 10, 25, 47;
+  --color-secondary-rgb: 100, 255, 218;
+  --color-tertiary-rgb: 136, 146, 176;
+  --color-light-rgb: 204, 214, 246;
+  
+  --color-dark-primary: #020c1b;
+  --color-dark-secondary: #64ffda;
+  --color-dark-tertiary: #8892b0;
+  --color-dark-light: #e6f1ff;
+  
+  /* RGB versions for dark mode */
+  --color-dark-primary-rgb: 2, 12, 27;
+  --color-dark-secondary-rgb: 100, 255, 218;
+  --color-dark-tertiary-rgb: 136, 146, 176;
+  --color-dark-light-rgb: 230, 241, 255;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+.dark-mode {
+  --color-primary: #020c1b;
+  --color-secondary: #64ffda;
+  --color-tertiary: #8892b0;
+  --color-light: #e6f1ff;
+  
+  --color-primary-rgb: 2, 12, 27;
+  --color-secondary-rgb: 100, 255, 218;
+  --color-tertiary-rgb: 136, 146, 176;
+  --color-light-rgb: 230, 241, 255;
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+  
+  body {
+    @apply bg-primary text-light;
+    margin: 0;
+    font-family: 'Calibre', 'Inter', 'San Francisco', 'SF Pro Text', -apple-system, system-ui, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+  
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-sans;
+  }
+  
+  code {
+    font-family: 'SF Mono', 'Fira Code', 'Fira Mono', 'Roboto Mono', source-code-pro, Menlo, Monaco, Consolas, 'Courier New', monospace;
+  }
+  
+  ::selection {
+    @apply bg-secondary-opaque/30 text-secondary;
+  }
+}
+
+@layer components {
+  .section-container {
+    @apply max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 md:py-20 lg:py-24;
+  }
+  
+  .btn-primary {
+    @apply bg-transparent text-secondary border border-secondary rounded-md px-5 py-2.5 font-mono text-sm relative overflow-hidden;
+    position: relative;
+    z-index: 1;
+    transition: all 0.3s ease;
+  }
+  
+  .btn-primary::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 0;
+    height: 100%;
+    background-color: rgba(100, 255, 218, 0.1);
+    z-index: -1;
+    transition: width 0.3s ease;
+  }
+  
+  .btn-primary:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 5px 15px rgba(100, 255, 218, 0.2);
+  }
+  
+  .btn-primary:hover::before {
+    width: 100%;
+  }
+  
+  .btn-primary:active {
+    transform: translateY(-1px);
+  }
+  
+  .btn-secondary {
+    @apply px-6 py-3 border border-tertiary border-opacity-30 rounded-md text-tertiary relative overflow-hidden;
+    position: relative;
+    z-index: 1;
+    transition: all 0.3s ease;
+  }
+  
+  .btn-secondary::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 0;
+    height: 100%;
+    background-color: rgba(136, 146, 176, 0.1);
+    z-index: -1;
+    transition: width 0.3s ease;
+  }
+  
+  .btn-secondary:hover {
+    @apply text-secondary border-secondary;
+    transform: translateY(-3px);
+  }
+  
+  .btn-secondary:hover::before {
+    width: 100%;
+  }
+  
+  .btn-secondary:active {
+    transform: translateY(-1px);
+  }
+  
+  .nav-link {
+    @apply text-tertiary hover:text-secondary transition-all duration-300;
+    position: relative;
+  }
+  
+  .nav-link::after {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 1px;
+    bottom: -4px;
+    left: 0;
+    background-color: var(--color-secondary);
+    transition: width 0.3s ease;
+  }
+  
+  .nav-link:hover::after {
+    width: 100%;
+  }
+  
+  .section-title {
+    @apply text-2xl md:text-3xl lg:text-4xl font-bold text-light relative mb-10 pb-4 inline-block;
+  }
+  
+  .section-title::after {
+    content: '';
+    @apply absolute bottom-0 left-0 h-0.5 w-16 bg-secondary;
+    transition: width 0.3s ease;
+  }
+  
+  .section-title:hover::after {
+    width: 100%;
+  }
+  
+  .card {
+    @apply bg-primary-opaque/30 backdrop-blur-sm rounded-lg border border-tertiary border-opacity-10 shadow-lg hover:shadow-xl transition-all duration-300 overflow-hidden;
+  }
+  
+  .card:hover {
+    @apply transform -translate-y-1 border-secondary border-opacity-20;
+    box-shadow: 0 10px 25px -5px rgba(100, 255, 218, 0.1);
+  }
+  
+  .glass-effect {
+    @apply bg-primary-opaque/70 backdrop-blur-md rounded-lg border border-tertiary border-opacity-10;
+  }
+}
+
+/* Dark mode overrides - these will be applied automatically with our toggler */
+.dark-mode .bg-primary {
+  background-color: var(--color-dark-primary);
+}
+
+.dark-mode .bg-primary-opaque\/70 {
+  background-color: rgba(var(--color-dark-primary-rgb), 0.7);
+}
+
+.dark-mode .bg-primary-opaque\/80 {
+  background-color: rgba(var(--color-dark-primary-rgb), 0.8);
+}
+
+.dark-mode .bg-primary-opaque\/90 {
+  background-color: rgba(var(--color-dark-primary-rgb), 0.9);
+}
+
+.dark-mode .bg-primary-opaque\/50 {
+  background-color: rgba(var(--color-dark-primary-rgb), 0.5);
+}
+
+.dark-mode .text-light {
+  color: var(--color-dark-light);
+}
+
+/* Animation for the page transitions */
+.page-transition-enter {
+  opacity: 0;
+}
+
+.page-transition-enter-active {
+  opacity: 1;
+  transition: opacity 300ms;
+}
+
+.page-transition-exit {
+  opacity: 1;
+}
+
+.page-transition-exit-active {
+  opacity: 0;
+  transition: opacity 300ms;
+}
+
+@layer utilities {
+  .hide-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+  
+  .hide-scrollbar {
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none;  /* Firefox */
+  }
 }
